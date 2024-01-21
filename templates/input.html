@@ -1,0 +1,41 @@
+{%- extends "base.html" %}
+
+  {% block scripts %}
+    {{ super() }}
+    {{ datepicker.loader(theme="base") }} {# to load jQuery-ui #}
+    {{ datepicker.picker(id=".dp") }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      var socket;
+
+      $(document).ready(function() {
+          socket = io();
+          socket.on('status', function(data) {
+            $('#status').html(data.message);
+          });
+      });
+    </script>
+  {% endblock %}
+
+  {% block content %}
+  <h1>Start Chain</h1>
+  <form action="/trigger_chain" method="post">
+    <div class="container">
+      <div class="row">
+        <div class="col col-sm-4">
+          <input type="text" class="form-control dp" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col col-sm-4" >
+          <input id="max_num" name="max_num"/>
+          <button id="start-chain" type="submit">Start Chain</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div id="status"></div>
+
+
+
+{% endblock %}

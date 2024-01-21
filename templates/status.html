@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      var socket;
+
+      $(document).ready(function() {
+          socket = io();
+          socket.on('status', function(data) {
+            $('#status').html(data.message);
+          });
+      });
+  </script>
+</head>
+<body>
+<h1>Status Screen</h1>
+<p>Chain running: {{ chain_running }}</p>
+<textarea id="chain-output">{{ chain_output }}</textarea>
+
+<div id="status" class="background-color:silver"></div>
+
+</body>
+</html>
